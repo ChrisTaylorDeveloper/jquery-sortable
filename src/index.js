@@ -5,7 +5,7 @@ import 'jquery-ui/ui/widgets/sortable';
 
 function component() {
     const element = document.createElement('div');
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    element.innerHTML = _.join(['Hello', 'from lodash'], ' ');
     return element;
 }
 
