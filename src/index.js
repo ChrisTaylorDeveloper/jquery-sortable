@@ -11,6 +11,9 @@ function component() {
 
 $( function() {
     $( "#sortable" ).sortable();
+    $( "#sortable" ).on( "sortstop", function( event, ui ) {
+        console.log( $( "#sortable" ).sortable( "serialize", { key: "sort" } ) );
+    } );
 } );
 
 document.body.appendChild(component());
