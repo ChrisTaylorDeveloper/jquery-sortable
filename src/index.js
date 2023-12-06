@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import $ from 'jquery';
 
 function component() {
     const element = document.createElement('div');
@@ -6,8 +7,8 @@ function component() {
     return element;
 }
 
-// $( function() {
-//     $( "#sortable" ).sortable();
-// } );
+$( function() {
+    // $( "#sortable" ).sortable();
+} );
 
 document.body.appendChild(component());
