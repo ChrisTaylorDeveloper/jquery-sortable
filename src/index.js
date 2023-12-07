@@ -14,6 +14,20 @@ $( function() {
     $( "#sortable" ).on( "sortstop", function( event, ui ) {
         console.log( $( "#sortable" ).sortable( "serialize", { key: "sort" } ) );
     } );
+    $("button").click(
+        function(){
+            $.post(
+                "demo_test_post.asp",
+                {
+                    name: "Donald Duck",
+                    city: "Duckburg"
+                },
+                function(data,status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                }
+            );
+        }
+    );
 } );
 
 document.body.appendChild(component());
