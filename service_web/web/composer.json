@@ -1,6 +1,7 @@
 {
     "require": {
         "symfony/http-foundation": "^6.3",
-        "symfony/routing": "^6.3"
+        "symfony/routing": "^6.3",
+        "doctrine/dbal": "^3.7"
     }
 }
