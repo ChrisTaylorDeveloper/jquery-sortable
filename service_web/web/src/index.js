@@ -13,7 +13,7 @@ $( function() {
     $("button").click(
         function(){
             $.post(
-                "ajax.php",
+                "/index.php/save",
                 {
                     foo: $( "#sortable" ).sortable( "serialize", { key: "sort" } )
                 },
