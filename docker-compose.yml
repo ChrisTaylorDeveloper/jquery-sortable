@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  web:
+    build:
+      context: ./service_web
+      args:
+        - XDEBUG=${XDEBUG}
+    ports:
+      - "80:80"
+    volumes:
+      - ./service_web/app/dist:/var/www/html
+  db:
+    image: mariadb:10.4
+    restart: always
+    volumes:
+      - /home/chris/repos-mysql/opk247_media_cover:/var/lib/mysql:Z
+    environment:
+      - MARIADB_ROOT_PASSWORD=root_pass
+      - MARIADB_USER=opk247_usr
+      - MARIADB_PASSWORD=usr_pass
+      - MARIADB_DATABASE=opk247
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
