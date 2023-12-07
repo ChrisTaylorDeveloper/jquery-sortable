@@ -10,20 +10,22 @@ function component() {
 }
 
 $( function() {
+
     $( "#sortable" ).sortable();
+
     $( "#sortable" ).on( "sortstop", function( event, ui ) {
         console.log( $( "#sortable" ).sortable( "serialize", { key: "sort" } ) );
     } );
+
     $("button").click(
         function(){
             $.post(
-                "demo_test_post.asp",
+                "ajax.php",
                 {
-                    name: "Donald Duck",
-                    city: "Duckburg"
+                    foo: $( "#sortable" ).sortable( "serialize", { key: "sort" } )
                 },
-                function(data,status){
-                    alert("Data: " + data + "\nStatus: " + status);
+                function(data, status){
+                    console.log("Data: " + data + "\nStatus: " + status);
                 }
             );
         }
