@@ -1,13 +1,6 @@
-import _ from 'lodash';
 import $ from 'jquery';
 import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/sortable';
-
-function component() {
-    const element = document.createElement('div');
-    element.innerHTML = _.join(['Hello', 'from lodash'], ' ');
-    return element;
-}
 
 $( function() {
 
@@ -31,5 +24,3 @@ $( function() {
         }
     );
 } );
-
-document.body.appendChild(component());

@@ -1,3 +1,16 @@
+<?php
+use Doctrine\DBAL\DriverManager;
+$params = [
+    'dbname' => 'opk247',
+    'user' => 'opk247_usr',
+    'password' => 'usr_pass',
+    'host' => 'db',
+    'driver' => 'pdo_mysql',
+];
+$conn = DriverManager::getConnection($params);
+$sql = "SELECT * FROM articles";
+$stmt = $conn->query($sql);
+?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -12,17 +25,17 @@
         <script src="/main.js"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script type = "text/javascript" language = "javascript">
-            $(document).ready(function() {
+            /*$(document).ready(function() {
                 $("p").html("<i>Assume we can work alongside an old version of jQuery???</i>");
-            });
+            });*/
         </script>
         <button>Save order</button>
         <ul id="sortable">
-            <li id="foo_1" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-            <li id="foo_2" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-            <li id="foo_3" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-            <li id="foo_4" class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+        <?php while (($row = $stmt->fetchAssociative()) !== false):  ?>
+            <li id="foo_<?php echo $row['id']; ?>"class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['id'], ' ', $row['article']; ?></li>
+        <?php endwhile; ?>
         </ul>
         <p></p>
     </body>
 </html>
+
