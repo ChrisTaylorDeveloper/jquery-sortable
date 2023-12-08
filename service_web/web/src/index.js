@@ -3,24 +3,23 @@ import 'jquery-ui/ui/core';
 import 'jquery-ui/ui/widgets/sortable';
 
 $( function() {
-
-    $( "#sortable" ).sortable();
-
-    /*$( "#sortable" ).on( "sortstop", function( event, ui ) {
-        console.log( $( "#sortable" ).sortable( "serialize", { key: "sort" } ) );
-    } );*/
-
-    $("button").click(
-        function(){
-            $.post(
-                "/index.php/save",
-                {
-                    articles: $( "#sortable" ).sortable( "serialize" )
-                },
-                function(data, status){
-                    console.log("Data: " + data + "\nStatus: " + status);
-                }
-            );
-        }
-    );
-} );
+    $("#sortable").sortable();
+    $("button").click(function () {
+        $.ajax({
+            url: "/index.php/save",
+            type: 'POST',
+            data: {articles: $("#sortable").sortable("serialize")},
+            async: false,
+            success: function (result, status, xhr) {
+                console.log("result: " + result);
+                console.log("status: " + status);
+                console.log("xhr: " + xhr);
+            },
+            error: function (xhr, status, error) {
+                console.log("xhr :" + xhr);
+                console.log("status :" + status);
+                console.log("error :" + error);
+            }
+        });
+    });
+});
