@@ -6,16 +6,16 @@ $( function() {
 
     $( "#sortable" ).sortable();
 
-    $( "#sortable" ).on( "sortstop", function( event, ui ) {
+    /*$( "#sortable" ).on( "sortstop", function( event, ui ) {
         console.log( $( "#sortable" ).sortable( "serialize", { key: "sort" } ) );
-    } );
+    } );*/
 
     $("button").click(
         function(){
             $.post(
                 "/index.php/save",
                 {
-                    foo: $( "#sortable" ).sortable( "serialize", { key: "sort" } )
+                    articles: $( "#sortable" ).sortable( "serialize" )
                 },
                 function(data, status){
                     console.log("Data: " + data + "\nStatus: " + status);

@@ -1,5 +1,6 @@
 <?php
 use Doctrine\DBAL\DriverManager;
+
 $params = [
     'dbname' => 'opk247',
     'user' => 'opk247_usr',
@@ -7,8 +8,17 @@ $params = [
     'host' => 'db',
     'driver' => 'pdo_mysql',
 ];
+
 $conn = DriverManager::getConnection($params);
-$sql = "SELECT * FROM articles";
+
+$sql = <<<SQL
+SELECT * FROM (
+    SELECT 'a' origin, articles.* FROM articles WHERE position IS NOT NULL
+    UNION ALL
+    SELECT 'b' origin, articles.* FROM articles WHERE position IS NULL
+) q ORDER BY origin ASC, position ASC
+SQL;
+
 $stmt = $conn->query($sql);
 ?>
 <!doctype html>
@@ -32,7 +42,12 @@ $stmt = $conn->query($sql);
         <button>Save order</button>
         <ul id="sortable">
         <?php while (($row = $stmt->fetchAssociative()) !== false):  ?>
-            <li id="foo_<?php echo $row['id']; ?>"class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span><?php echo $row['id'], ' ', $row['article']; ?></li>
+            <?php
+                // var_dump($row['id']);
+                // var_dump($row['position']);
+                // var_dump($row['article']);
+            ?>
+            <li id="article-<?php echo $row['id']; ?>" class="ui-state-default"><?php echo 'pos: ', $row['position'] ?? 'NULL', ', ', $row['article']; ?></li>
         <?php endwhile; ?>
         </ul>
         <p></p>
