@@ -8,7 +8,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./service_web/app/dist:/var/www/html
+      - ./service_web/web:/var/www/html
   db:
     image: mariadb:10.4
     restart: always
