@@ -9,14 +9,15 @@ $params = [
 ];
 $conn = DriverManager::getConnection($params);
 
-$articles_post = $request->request->get('articles');
-var_dump($articles_post);
+$articles_post = $request->request->get('articles'); //var_dump($articles_post);
+parse_str($articles_post, $articles); //var_dump($articles); die;
 
-// parse_str($articles_post, $articles);
+$sql = "UPDATE articles SET position = NULL";
+$conn->query($sql);
 
-// $i = 1;
-// foreach ($articles['article'] as $id) {
-//     $sql = "UPDATE articles SET position = $i WHERE id = $id"; //print_r($sql);
-//     $conn->query($sql);
-//     $i++;
-// }
+$i = 1;
+foreach ($articles['article'] as $id) {
+    $sql = "UPDATE articles SET position = $i WHERE id = $id";
+    $conn->query($sql);
+    $i++;
+}

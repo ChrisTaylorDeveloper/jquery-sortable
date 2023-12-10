@@ -18,7 +18,6 @@ SELECT * FROM (
     SELECT 'b' origin, articles.* FROM articles WHERE position IS NULL
 ) q ORDER BY origin ASC, position ASC
 SQL;
-$stmt = $conn->query($sql);
 ?>
 <!doctype html>
 <html lang="en">
@@ -33,21 +32,26 @@ $stmt = $conn->query($sql);
     <body>
         <script src="/main.js"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script type = "text/javascript" language = "javascript">
-            /*$(document).ready(function() {
-                $("p").html("<i>Assume we can work alongside an old version of jQuery???</i>");
-            });*/
-        </script>
-        <button>Save order</button>
-        <ul id="sortable">
+
+        <p><button>Save order</button></p>
+
+        <div id="sortable">
         <?php $count = 1; ?>
-        <?php while (($row = $stmt->fetchAssociative()) !== false):  ?>
-            <?php /* var_dump($row['id']); var_dump($row['position']); var_dump($row['article']); */ ?>
-            <li id="article-<?php echo $row['id']; ?>" class="ui-state-default"><?php echo 'count ', $count, ' position ', $row['position'] ?? '(none)', ' ', $row['article']; ?></li>
+        <?php $stmt = $conn->query($sql); ?>
+        <?php while ($count < 6 ):  ?>
+            <?php $row = $stmt->fetchAssociative(); ?>
+            <div id="article-<?php echo $row['id']; ?>"><code><?php echo $row['article']; ?></code></div>
             <?php $count++; ?>
         <?php endwhile; ?>
-        </ul>
-        <p></p>
+        </div>
+
+        <hr>
+
+        <div id="static">
+        <?php while (($row = $stmt->fetchAssociative()) !== false): ?>
+            <div id="article-<?php echo $row['id']; ?>"><code><?php echo $row['article']; ?></code><span class="top"><code>&nbsp;top</code></span></div>
+            <?php $count++; ?>
+        <?php endwhile; ?>
+        </div>
     </body>
 </html>
-
