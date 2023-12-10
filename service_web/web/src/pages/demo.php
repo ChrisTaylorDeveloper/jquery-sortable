@@ -27,7 +27,6 @@ SQL;
         <title>CTD | Sortable demo</title>
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/style.css">
     </head>
     <body>
         <script src="/main.js"></script>
