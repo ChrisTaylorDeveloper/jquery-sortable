@@ -8,14 +8,13 @@ $params = [
     'host' => 'db',
     'driver' => 'pdo_mysql',
 ];
-
 $conn = DriverManager::getConnection($params);
 
 $sql = <<<SQL
 SELECT * FROM (
-    SELECT 'a' origin, articles.* FROM articles WHERE position IS NOT NULL
+    SELECT 'a' origin, article_a.* FROM article_a WHERE position IS NOT NULL
     UNION ALL
-    SELECT 'b' origin, articles.* FROM articles WHERE position IS NULL
+    SELECT 'b' origin, article_a.* FROM article_a WHERE position IS NULL
 ) q ORDER BY origin ASC, position ASC
 SQL;
 ?>
@@ -28,13 +27,11 @@ SQL;
         <link rel="icon" type="image/x-icon" href="/favicon.png">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     </head>
-    <body>
+    <body id="demo-a">
         <script src="/main.js"></script>
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <p><button id="button-a">Save order</button></p>
 
-        <p><button>Save order</button></p>
-
-        <div id="sortable">
+        <div id="sortable" >
         <?php $count = 1; ?>
         <?php $stmt = $conn->query($sql); ?>
         <?php while ($count < 6 ):  ?>
@@ -43,12 +40,13 @@ SQL;
             <?php $count++; ?>
         <?php endwhile; ?>
         </div>
-
         <hr>
-
         <div id="static">
         <?php while (($row = $stmt->fetchAssociative()) !== false): ?>
-            <div id="article-<?php echo $row['id']; ?>"><code><?php echo $row['article']; ?></code><span class="top"><code>&nbsp;top</code></span></div>
+            <div id="article-<?php echo $row['id']; ?>">
+                <code><?php echo $row['article']; ?></code>
+                <span class="top"><code>&nbsp;top</code></span>
+            </div>
             <?php $count++; ?>
         <?php endwhile; ?>
         </div>
