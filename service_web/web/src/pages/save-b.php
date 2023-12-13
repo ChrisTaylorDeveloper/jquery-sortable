@@ -9,15 +9,15 @@ $params = [
 ];
 $conn = DriverManager::getConnection($params);
 
-$articles_post = $request->request->get('articles'); //var_dump($articles_post);
-parse_str($articles_post, $articles); //var_dump($articles); die;
+$articles_post = $request->request->get('articles');
+$articles = json_decode($articles_post);
 
-$sql = "UPDATE articles SET position = NULL";
+$sql = "UPDATE article_b SET position = NULL";
 $conn->query($sql);
 
 $i = 1;
-foreach ($articles['article'] as $id) {
-    $sql = "UPDATE articles SET position = $i WHERE id = $id";
+foreach ($articles as $id) {
+    $sql = "UPDATE article_b SET position = $i WHERE id = $id";
     $conn->query($sql);
     $i++;
 }
